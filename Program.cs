@@ -1,8 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using Modelo.Data.Context;
+using Modelo.IoC;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<ModeloContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ModeloDB")).EnableSensitiveDataLogging();
+    });
+
+//IoC
+NativeInjector.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
@@ -18,9 +32,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 
