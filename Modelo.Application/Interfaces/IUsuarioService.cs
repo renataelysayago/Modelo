@@ -1,7 +1,10 @@
-﻿namespace Modelo.Application.Interfaces
+﻿using Modelo.Application.ViewModels;
+
+namespace Modelo.Application.Interfaces
 {
     public interface IUsuarioService
     {
-        void Teste();
+        List<UsuarioViewModel> Get();
+        bool Post(UsuarioViewModel usuarioViewModel);
     }
 }

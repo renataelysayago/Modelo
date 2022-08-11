@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Modelo.Application.AutoMapper;
 using Modelo.Data.Context;
 using Modelo.IoC;
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<ModeloContext>(options => {
 
 //IoC
 NativeInjector.RegisterServices(builder.Services);
+
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperSetup));
 
 var app = builder.Build();
 

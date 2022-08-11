@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Modelo.Application.Interfaces;
+using Modelo.Application.ViewModels;
 
 namespace Modelo.Controllers
 {
@@ -17,19 +19,19 @@ namespace Modelo.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            this.usuarioService.Teste();
+            this.usuarioService.Get();
 
-            return Ok("Ok");
+            return Ok(this.usuarioService.Get());
         }
 
-        //[HttpPost, AllowAnonymous]
-        //public IActionResult Post(UserViewModel userViewModel)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+        [HttpPost, AllowAnonymous]
+        public IActionResult Post(UsuarioViewModel userViewModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    return Ok(this.userService.Post(userViewModel));
-        //}
+            return Ok(this.usuarioService.Post(userViewModel));
+        }
 
         //[HttpGet("{id}")]
         //public IActionResult GetById(string id)
