@@ -25,7 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2-CrossCutting", "4.2-Cro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo.IoC", "Modelo.IoC\Modelo.IoC.csproj", "{D9C2689C-EEDD-4DA4-A7C4-985C74506668}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo.Swagger", "Modelo.Swagger\Modelo.Swagger.csproj", "{C2CD6619-3AE4-4ABD-8CFD-CE1C775EC8B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo.Swagger", "Modelo.Swagger\Modelo.Swagger.csproj", "{C2CD6619-3AE4-4ABD-8CFD-CE1C775EC8B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo.Auth", "Modelo.Auth\Modelo.Auth.csproj", "{6627C762-4308-49FC-ADF5-DA18F8753A6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{C2CD6619-3AE4-4ABD-8CFD-CE1C775EC8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CD6619-3AE4-4ABD-8CFD-CE1C775EC8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CD6619-3AE4-4ABD-8CFD-CE1C775EC8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6627C762-4308-49FC-ADF5-DA18F8753A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6627C762-4308-49FC-ADF5-DA18F8753A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6627C762-4308-49FC-ADF5-DA18F8753A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6627C762-4308-49FC-ADF5-DA18F8753A6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{ACFD37CA-1097-4EBB-9682-0BEDE6970B18} = {EB344CF8-438D-4E0D-9C86-DF697E33D8D6}
 		{D9C2689C-EEDD-4DA4-A7C4-985C74506668} = {ACFD37CA-1097-4EBB-9682-0BEDE6970B18}
 		{C2CD6619-3AE4-4ABD-8CFD-CE1C775EC8B5} = {ACFD37CA-1097-4EBB-9682-0BEDE6970B18}
+		{6627C762-4308-49FC-ADF5-DA18F8753A6C} = {ACFD37CA-1097-4EBB-9682-0BEDE6970B18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2393436-268E-432E-BED1-22FB3F0DF225}

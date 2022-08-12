@@ -16,11 +16,7 @@ namespace Modelo.Swagger
 
         public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app)
         {
-            return app.UseSwagger().UseSwaggerUI(c =>
-            {
-                c.RoutePrefix = String.Empty;
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-            });
+            return app.UseSwagger().UseSwaggerUI();
         }
     }
 }

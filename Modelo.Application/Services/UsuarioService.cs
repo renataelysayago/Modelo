@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using Modelo.Application.Interfaces;
 using Modelo.Application.ViewModels;
+using Modelo.Auth.Services;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Modelo.Application.Services
 {
@@ -26,12 +30,12 @@ namespace Modelo.Application.Services
             return _usuarioViewModels;
         }
 
-        public bool Post(UsuarioViewModel usuarioViewModel)
+        public bool CriarUsuario(UsuarioViewModel usuarioViewModel)
         {
             if (usuarioViewModel.Id != Guid.Empty)
                 throw new Exception("O id do usuário precisa ser vazio");
 
-            //Validator.ValidateObject(usuarioViewModel, new ValidationContext(userViewModel), true);
+            Validator.ValidateObject(usuarioViewModel, new ValidationContext(usuarioViewModel), true);
 
             Usuario _usuario = mapper.Map<Usuario>(usuarioViewModel);
             //_usuario.Password = EncryptPassword(_usuario.Password);
@@ -81,35 +85,36 @@ namespace Modelo.Application.Services
             return this.usuarioRepository.Delete(_user);
         }
 
-        //public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRquestViewModel user)
-        //{
-        //    if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
-        //        throw new Exception("O Email/Senha deve ser informado");
+        public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRquestViewModel user)
+        {
+            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
+                throw new Exception("O Email/Senha deve ser informado");
 
-        //    user.Password = EncryptPassword(user.Password);
+            user.Password = EncryptPassword(user.Password);
 
-        //    Usuario _user = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower()
-        //                                                            && x.Password.ToLower() == user.Password.ToLower());
+            Usuario _user = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
 
-        //    if (_user == null)
-        //        throw new Exception("Usuário não encontrado");
+                                                                    //&& x.Password.ToLower() == user.Password.ToLower());
 
-        //    return new UserAuthenticateResponseViewModel(mapper.Map<UserViewModel>(_user), TokenService.GenerateToken(_user));
-        //}
+            if (_user == null)
+                throw new Exception("Usuário não encontrado");
 
-        //private string EncryptPassword(string password)
-        //{
-        //    HashAlgorithm sha = new SHA1CryptoServiceProvider();
+            return new UserAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(_user), TokenService.GenerateToken(_user));
+        }
 
-        //    byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+        private string EncryptPassword(string password)
+        {
+            HashAlgorithm sha = new SHA1CryptoServiceProvider();
 
-        //    StringBuilder stringBuilder = new StringBuilder();
-        //    foreach (var caracter in encryptedPassword)
-        //    {
-        //        stringBuilder.Append(caracter.ToString("X2"));
-        //    }
+            byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-        //    return stringBuilder.ToString();
-        //}
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var caracter in encryptedPassword)
+            {
+                stringBuilder.Append(caracter.ToString("X2"));
+            }
+
+            return stringBuilder.ToString();
+        }
     }
 }

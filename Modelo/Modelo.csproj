@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modelo.Application\Modelo.Application.csproj" />
+    <ProjectReference Include="..\Modelo.Auth\Modelo.Auth.csproj" />
     <ProjectReference Include="..\Modelo.Infra\Modelo.Data.csproj" />
     <ProjectReference Include="..\Modelo.IoC\Modelo.IoC.csproj" />
     <ProjectReference Include="..\Modelo.Swagger\Modelo.Swagger.csproj" />
