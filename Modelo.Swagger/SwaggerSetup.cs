@@ -18,7 +18,7 @@ namespace Modelo.Swagger
         {
             return app.UseSwagger().UseSwaggerUI(c =>
             {
-                c.RoutePrefix = "doc";
+                c.RoutePrefix = String.Empty;
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
             });
         }

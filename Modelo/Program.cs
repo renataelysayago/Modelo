@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerConfiguration();
+//builder.Services.AddSwaggerConfiguration();
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ModeloContext>(options => {
@@ -35,7 +36,12 @@ var app = builder.Build();
 
 app.UsePathBase("/api");
 
-app.UseSwaggerConfiguration();
+//app.UseSwaggerConfiguration();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

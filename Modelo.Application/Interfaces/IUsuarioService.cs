@@ -6,5 +6,9 @@ namespace Modelo.Application.Interfaces
     {
         List<UsuarioViewModel> Get();
         bool Post(UsuarioViewModel usuarioViewModel);
+        UsuarioViewModel GetById(string id);
+        bool Put(UsuarioViewModel userViewModel);
+        bool Delete(string id);
+        //UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRquestViewModel user);
     }
 }

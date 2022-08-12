@@ -33,24 +33,24 @@ namespace Modelo.Controllers
             return Ok(this.usuarioService.Post(userViewModel));
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult GetById(string id)
-        //{
-        //    return Ok(this.userService.GetById(id));
-        //}
+        [HttpGet("{id}")]
+        public IActionResult GetById(string id)
+        {
+            return Ok(this.usuarioService.GetById(id));
+        }
 
-        //[HttpPut]
-        //public IActionResult Put(UserViewModel userViewModel)
-        //{
-        //    return Ok(this.userService.Put(userViewModel));
-        //}
+        [HttpPut]
+        public IActionResult Put(UsuarioViewModel userViewModel)
+        {
+            return Ok(this.usuarioService.Put(userViewModel));
+        }
 
         //[HttpDelete]
         //public IActionResult Delete()
         //{
         //    var _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
 
-        //    return Ok(this.userService.Delete(_userId));
+        //    return Ok(this.usuarioService.Delete(_userId));
         //}
 
         //[HttpPost("authenticate"), AllowAnonymous]
