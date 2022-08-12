@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Modelo.Application.AutoMapper;
 using Modelo.Data.Context;
 using Modelo.IoC;
+using Modelo.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfiguration();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ModeloContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ModeloDB")).EnableSensitiveDataLogging();
@@ -31,16 +33,18 @@ var app = builder.Build();
 //    //app.UseHsts();
 //}
 
+app.UsePathBase("/api");
+
+app.UseSwaggerConfiguration();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-//app.UseRouting();
-
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-//app.MapFallbackToFile("index.html"); ;
+app.MapFallbackToFile("index.html"); ;
 
 app.UseAuthentication();
 app.UseAuthorization();

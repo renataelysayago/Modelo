@@ -5,7 +5,7 @@ using Modelo.Application.ViewModels;
 
 namespace Modelo.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/usuario")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
