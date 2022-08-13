@@ -10,7 +10,7 @@ namespace Modelo.Data.Mappings
         {
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Nome).HasMaxLength(100).IsRequired();
-            //builder.Property(x => x.Password).IsRequired().HasDefaultValue("SenhaInicial");
+            builder.Property(x => x.Senha).IsRequired().HasDefaultValue("SenhaInicial");
         }
     }
 }

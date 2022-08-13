@@ -38,7 +38,7 @@ namespace Modelo.Application.Services
             Validator.ValidateObject(usuarioViewModel, new ValidationContext(usuarioViewModel), true);
 
             Usuario _usuario = mapper.Map<Usuario>(usuarioViewModel);
-            //_usuario.Password = EncryptPassword(_usuario.Password);
+            _usuario.Senha = EncryptPassword(_usuario.Senha);
 
             this.usuarioRepository.Create(_usuario);
             return true;
@@ -49,11 +49,11 @@ namespace Modelo.Application.Services
             if (!Guid.TryParse(id, out Guid userId))
                 throw new Exception("O id do usuário não é válido");
 
-            Usuario _user = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
-            if (_user == null)
+            Usuario _usuario = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
+            if (_usuario == null)
                 throw new Exception("Usuário não encontrado");
 
-            return mapper.Map<UsuarioViewModel>(_user);
+            return mapper.Map<UsuarioViewModel>(_usuario);
         }
 
         public bool Put(UsuarioViewModel userViewModel)
@@ -61,14 +61,14 @@ namespace Modelo.Application.Services
             if (userViewModel.Id == Guid.Empty)
                 throw new Exception("O id é inválido");
 
-            Usuario _user = this.usuarioRepository.Find(x => x.Id == userViewModel.Id && !x.IsDeleted);
-            if (_user == null)
+            Usuario _usuario = this.usuarioRepository.Find(x => x.Id == userViewModel.Id && !x.IsDeleted);
+            if (_usuario == null)
                 throw new Exception("Usuário não encontrado");
 
-            _user = mapper.Map<Usuario>(userViewModel);
-            //_user.Password = EncryptPassword(_user.Password);
+            _usuario = mapper.Map<Usuario>(userViewModel);
+            _usuario.Senha = EncryptPassword(_usuario.Senha);
 
-            this.usuarioRepository.Update(_user);
+            this.usuarioRepository.Update(_usuario);
 
             return true;
         }
@@ -78,23 +78,21 @@ namespace Modelo.Application.Services
             if (!Guid.TryParse(id, out Guid userId))
                 throw new Exception("O id do usuário não é válido");
 
-            Usuario _user = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
-            if (_user == null)
+            Usuario _usuario = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
+            if (_usuario == null)
                 throw new Exception("Usuário não encontrado");
 
-            return this.usuarioRepository.Delete(_user);
+            return this.usuarioRepository.Delete(_usuario);
         }
 
-        public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRquestViewModel user)
+        public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRquestViewModel usuario)
         {
-            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
+            if (string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Senha))
                 throw new Exception("O Email/Senha deve ser informado");
 
-            user.Password = EncryptPassword(user.Password);
+            usuario.Senha = EncryptPassword(usuario.Senha);
 
-            Usuario _user = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
-
-                                                                    //&& x.Password.ToLower() == user.Password.ToLower());
+            Usuario _user = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == usuario.Email.ToLower()  && x.Senha.ToLower() == usuario.Senha.ToLower());
 
             if (_user == null)
                 throw new Exception("Usuário não encontrado");
@@ -102,11 +100,11 @@ namespace Modelo.Application.Services
             return new UserAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(_user), TokenService.GenerateToken(_user));
         }
 
-        private string EncryptPassword(string password)
+        private string EncryptPassword(string senha)
         {
             HashAlgorithm sha = new SHA1CryptoServiceProvider();
 
-            byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
 
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var caracter in encryptedPassword)

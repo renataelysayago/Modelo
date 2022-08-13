@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modelo.Data.Context;
 
@@ -11,9 +12,10 @@ using Modelo.Data.Context;
 namespace Modelo.Data.Migrations
 {
     [DbContext(typeof(ModeloContext))]
-    partial class ModeloContextModelSnapshot : ModelSnapshot
+    [Migration("20220812192644_Inclusão do campo senha")]
+    partial class Inclusãodocamposenha
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

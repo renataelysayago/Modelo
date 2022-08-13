@@ -7,8 +7,8 @@ using System.Security.Claims;
 
 namespace Modelo.Controllers
 {
-    [Route("api/usuario")]
-    [ApiController]
+    [Route("api/usuarios")]
+    [ApiController, Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService usuarioService;
@@ -26,7 +26,7 @@ namespace Modelo.Controllers
             return Ok(this.usuarioService.Get());
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost("criar"), AllowAnonymous]
         public IActionResult CriarUsuario(UsuarioViewModel usuarioViewModel)
         {
             if (!ModelState.IsValid)
@@ -47,12 +47,12 @@ namespace Modelo.Controllers
             return Ok(this.usuarioService.Put(usuarioViewModel));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            //var _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+            var _usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
 
-            return Ok(this.usuarioService.Delete(id));
+            return Ok(this.usuarioService.Delete(_usuarioId));
         }
 
         [HttpPost("authenticate"), AllowAnonymous]
